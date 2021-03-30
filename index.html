@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button onclick="start()">Starten</button>
+<button onclick="end()">End</button>
+
+<script>
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onstart = function () {
+        console.log("Started");
+    }
+
+    recognition.onresult = function (event) {
+        console.log(event);
+    }
+
+    recognition.onerror = function (err) {
+
+    }
+    recognition.onend = function () {
+        console.log("Ended");
+    }
+
+    function start() {
+        recognition.lang = "de-DE";
+        recognition.start();
+    }
+
+    function end() {
+        recognition.stop();
+    }
+
+</script>
+
+</body>
+</html>
