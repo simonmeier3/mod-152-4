@@ -6,13 +6,14 @@
 </head>
 <body>
 
-<button onclick="start()">Starten</button>
-<button onclick="end()">Beenden</button>
+<button id="startButton" onclick="start()">Starten</button>
+<button id="stopButton" onclick="end()">Beenden</button>
+<label for="textResult"></label><textarea id="textResult" name="result" rows="4" cols="50" readonly></textarea>
 
 <script>
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
-    recognition.interimResults = true;
+    recognition.interimResults = false;
 
     recognition.onstart = function () {
         console.log("Started");
@@ -20,6 +21,12 @@
 
     recognition.onresult = function (event) {
         console.log(event);
+        const result = document.getElementById('textResult');
+        result.innerText = event.results[0][0].transcript;
+        setTimeout(function (){
+            const result = document.getElementById('textResult');
+            result.innerText = "";
+        }, 5000);
     }
 
     recognition.onerror = function (err) {
@@ -37,6 +44,7 @@
     function end() {
         recognition.stop();
     }
+
 
 </script>
 
