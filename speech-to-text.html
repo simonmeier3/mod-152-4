@@ -3,12 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Web Speech</title>
+    <link rel="stylesheet" type="text/css" href="speech-to-text.css">
 </head>
 <body>
 
-<button id="startButton" onclick="start()">Starten</button>
-<button id="stopButton" onclick="end()">Beenden</button>
-<label for="textResult"></label><textarea id="textResult" name="result" rows="4" cols="50" readonly></textarea>
+<div id="wrapper">
+    <h1 id="title">Speech Recognition</h1>
+    <div id="content">
+        <div id="result">
+            <label for="textResult"></label><textarea id="textResult" name="result" rows="6" cols="70" readonly></textarea>
+        </div>
+        <div id="buttons">
+            <button id="startButton" onclick="start()">Start</button>
+            <button id="stopButton" onclick="end()">Stop</button>
+        </div>
+        <div id="select">
+            <label>Select language:</label>
+            <select id="language" name="language">
+                <option value="german">German</option>
+                <option value="english">English</option>
+                <option value="french">French</option>
+                <option value="italian">Italian</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
     var recognition = new webkitSpeechRecognition();
@@ -37,7 +58,19 @@
     }
 
     function start() {
-        recognition.lang = "de-DE";
+        const language = document.getElementById('language').value;
+        if (language === "german"){
+            recognition.lang = "de-DE";
+        }
+        if (language === "english"){
+            recognition.lang = "en-US";
+        }
+        if (language === "french"){
+            recognition.lang = "fr-FR";
+        }
+        if (language === "italian"){
+            recognition.lang = "it-IT";
+        }
         recognition.start();
     }
 
